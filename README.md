@@ -74,3 +74,7 @@ applyStylesToNode(selectors['.centered'], document.querySelector('#some-div'));
 # Limitations
 
 This library uses [reworkcss/css](https://github.com/reworkcss/css) to parse CSS. It is currently a proof of concept and not intended for production usage. This loader is currently untested with any other CSS loaders. The underlying concept is still a work in progress, if you have any suggestions please feel free to open an issue.
+
+# Contributing
+
+Questions, criticism and pull requests are always welcome.
