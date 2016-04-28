@@ -1,4 +1,11 @@
+'use strict;'
 var css = require('css');
+
+module.exports = function(source) {
+  var parsedStylesheet = getParsedStylesheet(source);
+  var selectors = parsedStylesheet && parsedStylesheet.rules.reduce(reduceRulesToSelectors, {});
+  return 'module.exports = ' + JSON.stringify(selectors) + ';';
+};
 
 function camelCase(word) {
   word = "" + word;
@@ -10,19 +17,29 @@ function camelCase(word) {
     return memo;
   }, '');
 }
-module.exports = function(source) {
-  var parsedStylesheet = css.parse(source).stylesheet;
-  var selectors = parsedStylesheet && parsedStylesheet.rules.reduce((result, rule) => {
-    var selector = rule.selectors[0];
-    result[selector] = rule.declarations.reduce((memo, declaration) => {
-      var property = declaration.property;
-      var key = camelCase(property);
-      var value = declaration.value;
-      memo[key] = value;
-      return memo;
-    }, {});
-    return result;
-  }, {});
 
-  return 'module.exports = ' + JSON.stringify(selectors) + ';';
-};
+function getParsedStylesheet(source) {
+  return css.parse(source).stylesheet;
+}
+
+function isValidRule(rule) {
+  return rule.type === 'rule' && rule.selectors && rule.selectors.length;
+}
+
+function reduceDeclarationsToStyleObject(styleObj, declaration) {
+  var property = declaration.property;
+  var key = camelCase(property);
+  var value = declaration.value;
+  styleObj[key] = value;
+  return styleObj;
+}
+
+function reduceRulesToSelectors(selectors, rule) {
+  if (!isValidRule(rule)) {
+    return selectors;
+  }
+  rule.selectors.forEach((selector) => {
+    selectors[selector] = rule.declarations.reduce(reduceDeclarationsToStyleObject, {});
+  });
+  return selectors;
+}
