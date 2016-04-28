@@ -10,6 +10,7 @@
   "author": "pl12133",
   "license": "MIT",
   "dependencies": {
+    "camelcase": "^2.1.1",
     "css": "^2.2.1"
   }
 }

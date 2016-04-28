@@ -1,22 +1,12 @@
 'use strict;'
 var css = require('css');
+var camelCase = require('camelcase');
 
 module.exports = function(source) {
   var parsedStylesheet = getParsedStylesheet(source);
   var selectors = parsedStylesheet && parsedStylesheet.rules.reduce(reduceRulesToSelectors, {});
   return 'module.exports = ' + JSON.stringify(selectors) + ';';
 };
-
-function camelCase(word) {
-  word = "" + word;
-  return word.split('').reduce((memo, current, index, arr) => {
-    if (current !== '-') {
-      var letter = (arr[index-1] === '-') ? current.toUpperCase() : current;
-      memo += letter;
-    }
-    return memo;
-  }, '');
-}
 
 function getParsedStylesheet(source) {
   return css.parse(source).stylesheet;
