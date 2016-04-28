@@ -7,21 +7,12 @@ npm install -D css-object-loader
 
 # Usage:
 
-Create a `.csso` file and add CSS Rules to it:
-
-###### + rules.csso
-```css
-font-size: 12px;
-margin: 0 auto;
-background: green no-repeat center center !important;
-```
-
-Create an entry to load `.csso` files in your webpack.config:
+Create an entry to load `.css` files in your webpack.config:
 
 ```js
   module: {
     loaders: [{
-        test: /\.csso$/,
+        test: /\.css$/,
         loaders: [ 'css-object' ],
         exclude: /node_modules/
       }
@@ -29,16 +20,27 @@ Create an entry to load `.csso` files in your webpack.config:
   }
 ```
 
-Require your rules and they will become a camel-cased object:
+Requiring CSS rules:
+
+```css
++ rules.css
+.styles {
+  font-size: 12px;
+  margin: 0 auto;
+  background: green no-repeat center center !important;
+}
+```
 
 ```js
-var rules = require('./rules.csso');
-console.log(styles);
+var selectors = require('./rules.css');
+console.log(selectors);
 // Output:
-// styles = {
-//   fontSize: '12px',
-//   margin: '0 auto',
-//   background: 'green no-repeat center center !important
+// selectors: {
+//   '.styles': {
+//     fontSize: '12px',
+//     margin: '0 auto',
+//     background: 'green no-repeat center center !important'
+//   }
 // }
 ```
 
@@ -46,7 +48,7 @@ Now you can use those rules however you like:
 ###### React
 ```js
 const MyComponent = ({children}) => (
-  <div style={rules}>{children}</div>
+  <div style={selectors['.styles']}>{children}</div>
 );
 ```
 
@@ -59,10 +61,9 @@ function applyStylesToNode (styles) {
   };
   return nodeMutator;
 }
-applyStylesToNode(rules)(document.querySelector('#some-div'))
+applyStylesToNode(selectors['.styles'])(document.querySelector('#some-div'))
 ```
 
+# Limitations
 
-# Drawbacks
-
-This library employs very simple parsing techniques. It is currently a proof of concept and not intended for production usage. The underlying concept is still a work in progress, if you have any suggestions please feel free to open an issue.
+This library uses [reworkcss/css](https://github.com/reworkcss/css) to parse CSS. It is currently a proof of concept and not intended for production usage. This loader is currently untested with any other CSS loaders. The underlying concept is still a work in progress, if you have any suggestions please feel free to open an issue.
