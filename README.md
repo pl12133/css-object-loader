@@ -25,7 +25,7 @@ Create an entry to load `.csso` files in your webpack.config:
   }
 ```
 
-Require your rules and they will become an object:
+Require your rules and they will become a camel-cased object:
 
 ```js
 var rules = require('./rules.csso');
@@ -57,3 +57,8 @@ function applyStylesToNode (styles) {
 }
 applyStylesToNode(rules)(document.querySelector('#some-div'))
 ```
+
+
+# Drawbacks
+
+This library employs very simple parsing techniques. It is currently a proof of concept and not intended for production usage. The underlying concept is still a work in progress, if you have any suggestions please feel free to open an issue.
