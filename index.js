@@ -1,4 +1,7 @@
+var css = require('css');
+
 function camelCase(word) {
+  word = "" + word;
   return word.split('').reduce((memo, current, index, arr) => {
     if (current !== '-') {
       var letter = (arr[index-1] === '-') ? current.toUpperCase() : current;
@@ -8,28 +11,18 @@ function camelCase(word) {
   }, '');
 }
 module.exports = function(source) {
-  var parsed = source
-    // Split the style block into lines
-    .split('\n')
-    // Remove lines that don't include rules
-    .filter(line => line.includes(';'))
-    // Join rules to string to perform regular expression
-    .join(' ')
-    // Trim
-    .trim()
-    // Replace all repeating whitespace with one whitespace character
-    .replace(/\s\+/g, ' ')
-    // Rules are delimited by semicolon. Split string into rules
-    .split(';')
-    // Reduce rules into an object with camel cased keys
-    .reduce((memo, current) => {
-      var ruleTuple = current.split(':')
-      var key = camelCase(ruleTuple[0]).trim();
-      var value = ("" + ruleTuple[1]).trim();
-      if (key) {
-        memo[key] = value;
-      }
+  var parsedStylesheet = css.parse(source).stylesheet;
+  var selectors = parsedStylesheet && parsedStylesheet.rules.reduce((result, rule) => {
+    var selector = rule.selectors[0];
+    result[selector] = rule.declarations.reduce((memo, declaration) => {
+      var property = declaration.property;
+      var key = camelCase(property);
+      var value = declaration.value;
+      memo[key] = value;
       return memo;
     }, {});
-  return 'module.exports = ' + JSON.stringify(parsed) + ';';
+    return result;
+  }, {});
+
+  return 'module.exports = ' + JSON.stringify(selectors) + ';';
 };

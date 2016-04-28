@@ -1,6 +1,10 @@
 # css-object-loader
 Load a file with CSS Rules into an object
 
+# Install
+
+npm install -D css-object-loader
+
 # Usage:
 
 Create a `.csso` file and add CSS Rules to it:
