@@ -1,9 +1,9 @@
 # css-object-loader
-Load a file with CSS Rules into an object
+Webpack loader to load CSS into a selector object with camelCased properties. Load a CSS file and it will return an object with keys that are the selectors from that CSS file. Each selector has an object containing the rules declared in your CSS.
 
 # Install
 
-npm install -D css-object-loader
+`npm install -D css-object-loader`
 
 # Usage:
 
@@ -24,10 +24,15 @@ Requiring CSS rules:
 
 ```css
 + rules.css
-.styles {
-  font-size: 12px;
+p {
+  font-size: 14px;
+}
+h1 {
+  text-indent: 20px;
+}
+.centered {
+  width: 100%;
   margin: 0 auto;
-  background: green no-repeat center center !important;
 }
 ```
 
@@ -36,11 +41,16 @@ var selectors = require('./rules.css');
 console.log(selectors);
 // Output:
 // selectors: {
-//   '.styles': {
-//     fontSize: '12px',
-//     margin: '0 auto',
-//     background: 'green no-repeat center center !important'
-//   }
+//    p: {
+//      fontSize: '14px'
+//    },
+//    h1: {
+//      textIndent: '20px'
+//    },
+//    '.centered': {
+//      width: '100%',
+//      margin: '0 auto'
+//    }
 // }
 ```
 
@@ -48,20 +58,17 @@ Now you can use those rules however you like:
 ###### React
 ```js
 const MyComponent = ({children}) => (
-  <div style={selectors['.styles']}>{children}</div>
+  <div style={selectors['.centered']}>{children}</div>
 );
 ```
 
 ###### DOM
 ```js
-function applyStylesToNode (styles) {
-  let nodeMutator = (node) => {
-    Object.keys(styles).forEach(key => node.style[key] = styles[key]);
-    return node;
-  };
-  return nodeMutator;
+function applyStylesToNode (styles, node) {
+  Object.keys(styles).forEach(key => node.style[key] = styles[key]);
+  return node;
 }
-applyStylesToNode(selectors['.styles'])(document.querySelector('#some-div'))
+applyStylesToNode(selectors['.centered'], document.querySelector('#some-div'));
 ```
 
 # Limitations

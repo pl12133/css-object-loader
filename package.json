@@ -1,7 +1,7 @@
 {
   "name": "css-object-loader",
   "version": "0.0.3",
-  "description": "Load CSS rules into an object",
+  "description": "Webpack loader to load CSS into a selector object with camelCased properties",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
