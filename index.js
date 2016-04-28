@@ -8,7 +8,6 @@ function camelCase(word) {
   }, '');
 }
 module.exports = function(source) {
-  console.log('Loaded something', source);
   var parsed = source
     // Split the style block into lines
     .split('\n')
@@ -32,7 +31,5 @@ module.exports = function(source) {
       }
       return memo;
     }, {});
-  console.log('Got Styles:', source);
-  console.log('Parsed to:', parsed);
   return 'module.exports = ' + JSON.stringify(parsed) + ';';
 };
