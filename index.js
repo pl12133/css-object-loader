@@ -39,7 +39,10 @@ function reduceRulesToSelectors(selectors, rule) {
     return selectors;
   }
   rule.selectors.forEach((selector) => {
-    selectors[selector] = rule.declarations.reduce(reduceDeclarationsToStyleObject, {});
+    selectors[selector] = Object.assign({},
+        selectors[selector],
+        rule.declarations.reduce(reduceDeclarationsToStyleObject, {})
+    );
   });
   return selectors;
 }
