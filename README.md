@@ -1,6 +1,8 @@
 # css-object-loader
 
-![logo](http://i.imgur.com/PXYAzQE.png "CSS Object Loader")
+<p align="center">
+  <img src='http://i.imgur.com/PXYAzQE.png' title='CSS Object Loader' alt='CSS Object Loader'></img>
+</p>
 
 Webpack loader to load CSS into a selector object with camelCased properties. Load a CSS file and it will return an object with keys that are the selectors from that CSS file. Each selector has an object containing the rules declared in your CSS.
 
