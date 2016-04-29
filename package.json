@@ -1,6 +1,6 @@
 {
   "name": "css-object-loader",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Webpack loader to load CSS into a selector object with camelCased properties",
   "main": "index.js",
   "scripts": {
