@@ -4,7 +4,7 @@
 
 # css-object-loader
 
-Webpack loader to load CSS into a selector object with camelCased properties. Load a CSS file and it will return an object with keys that are the selectors from that CSS file. Each selector has an object containing the rules declared in your CSS.
+Webpack loader to load CSS into an object. The object has keys that are selectors from the CSS file; the value of each selector are the rules converted to camelCase properties ([see Style Object Properties](http://www.w3schools.com/jsref/dom_obj_style.asp)). This object is compatible with [React Inline Styles](https://facebook.github.io/react/tips/inline-styles.html).
 
 ## Install
 
@@ -17,14 +17,14 @@ Webpack loader to load CSS into a selector object with camelCased properties. Lo
 Create an entry to load `.css` files in your webpack.config:
 
 ```js
-  module: {
-    loaders: [{
-        test: /\.css$/,
-        loaders: [ 'css-object' ],
-        exclude: /node_modules/
-      }
-    ]
-  }
+module: {
+  loaders: [{
+      test: /\.css$/,
+      loaders: [ 'css-object' ],
+      exclude: /node_modules/
+    }
+  ]
+}
 ```
 
 Requiring CSS rules:
@@ -72,11 +72,15 @@ const MyComponent = ({children}) => (
 ###### DOM
 ```js
 function applyStylesToNode (styles, node) {
-  Object.keys(styles).forEach(key => node.style[key] = styles[key]);
-  return node;
+  Object.keys(styles).forEach(key => { node.style[key] = styles[key] });
 }
 applyStylesToNode(selectors['.centered'], document.querySelector('#some-div'));
 ```
+
+### Use Case
+
+1. You want to inline all your styles, but you still want to write your CSS into CSS files.
+2. You want to use a CSS preprocessor to write your inline styles.
 
 ### Multiple Loaders
 
@@ -85,7 +89,7 @@ If you want to use `css-object-loader` with LESS or SASS, make sure the preproce
 ```js
 module: {
   loaders: [{
-    test: /\.scss/,
+    test: /\.scss$/,
     loaders: [ 'css-object', 'sass' ],
     exclude: /node_modules/
   }]
@@ -94,7 +98,11 @@ module: {
 
 ## Limitations
 
-This library uses [reworkcss/css](https://github.com/reworkcss/css) to parse CSS. It is currently a proof of concept and not intended for production usage. This loader should function with other CSS preprocessors as long as they run before `css-object-loader`. The underlying concept is still a work in progress, if you have any suggestions please feel free to open an issue.
+This library is currently a proof of concept and not intended for production usage. This loader should function with other CSS preprocessors as long as they run before `css-object-loader`. The underlying concept is still a work in progress, if you have any suggestions please feel free to open an issue.
+
+## Implementation
+
+This library uses [reworkcss/css](https://github.com/reworkcss/css) to parse CSS to an AST. The AST is then traversed to find rule declarations and populate them into an object. Media queries are ignored.
 
 ## Contributing
 
