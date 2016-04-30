@@ -1,13 +1,16 @@
 {
   "name": "css-object-loader",
-  "version": "0.0.4",
+  "version": "0.0.5",
+  "author": "pl12133",
   "description": "Webpack loader to load CSS into a selector object with camelCased properties",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "pl12133",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/pl12133/css-object-loader"
+  },
   "license": "MIT",
   "dependencies": {
     "camelcase": "^2.1.1",
