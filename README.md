@@ -84,6 +84,25 @@ applyStylesToNode(selectors['.centered'], document.querySelector('#some-div'));
 
 ### Multiple Loaders
 
+##### Use with other CSS loaders
+
+If you are already using a different CSS related loader like [css-loader](https://github.com/webpack/css-loader) or [style-loader](https://github.com/webpack/style-loader), it is easy to use `css-object-loader` on a single file. For example:
+
+```js
+// Use the loaders from your webpack config:
+import styles from './styles.css';
+// Explicity use `css-object-loader`:
+import styleObject from '!css-object!./styles.css';
+// With SASS:
+import sassStyleObject from '!css-object!sass!./styles.scss';
+```
+
+This allows you to introduce `css-object-loader` into your projects without making breaking changes. 
+
+__NOTE__: If you import a CSS file with `:local(...)` selectors, the selector object will include the `:local(...)` string.
+
+##### Preprocessors
+
 If you want to use `css-object-loader` with LESS or SASS, make sure the preprocessor loader runs before `css-object-loader`. Webpack evaluates loaders right to left. Example config for SASS:
 
 ```js

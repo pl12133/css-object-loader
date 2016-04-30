@@ -25,9 +25,16 @@ function getParsedStylesheet(source) {
 function isValidRule(rule) {
   return !!(rule.type === 'rule' && rule.selectors && rule.selectors.length);
 }
+// Return `true` for an AST node with { type: 'declaration' } and any property
+function isValidDeclaration (declaration) {
+  return !!(declaration.type === 'declaration' && declaration.property && declaration.property.length);
+}
 
 // Reduce a declaration node from the AST to a style object
 function reduceDeclarationsToStyleObject(styleObj, declaration) {
+  if (!isValidDeclaration(declaration)) {
+    return styleObj;
+  }
   var key = camelCase(declaration.property);
   var value = declaration.value;
   styleObj[key] = value;
