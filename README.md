@@ -99,6 +99,8 @@ import sassStyleObject from '!css-object!sass!./styles.scss';
 
 This allows you to introduce `css-object-loader` into your projects without making breaking changes.
 
+__NOTE__: If you import a CSS file with `:local(...)` selectors, the selector object will include the `:local(...)` string.
+
 ##### Preprocessors
 
 If you want to use `css-object-loader` with LESS or SASS, make sure the preprocessor loader runs before `css-object-loader`. Webpack evaluates loaders right to left. Example config for SASS:
