@@ -1,4 +1,4 @@
-'use strict;'
+'use strict;';
 // CSS Parser
 var css = require('css');
 // Convert words to camelCase
@@ -7,7 +7,7 @@ var camelCase = require('camelcase');
 // To accomplish loading CSS to an Object, the process is:
 //   1. Parse CSS stylesheet to AST
 //   2. Flatten AST to Object of shape { [rule.selector]: rule.declarations }
-module.exports = function cssObjectLoader(source) {
+module.exports = function cssObjectLoader (source) {
   this.cacheable && this.cacheable();
   // Step 1.
   var parsedStylesheet = getParsedStylesheet(source);
@@ -17,12 +17,12 @@ module.exports = function cssObjectLoader(source) {
 };
 
 // Parse the contents of the CSS file and get the resulting AST
-function getParsedStylesheet(source) {
+function getParsedStylesheet (source) {
   return css.parse(source).stylesheet;
 }
 
 // Return `true` for an AST node with { type: 'rule' } and valid selectors
-function isValidRule(rule) {
+function isValidRule (rule) {
   return !!(rule.type === 'rule' && rule.selectors && rule.selectors.length);
 }
 // Return `true` for an AST node with { type: 'declaration' } and any property
@@ -31,7 +31,7 @@ function isValidDeclaration (declaration) {
 }
 
 // Reduce a declaration node from the AST to a style object
-function reduceDeclarationsToStyleObject(styleObj, declaration) {
+function reduceDeclarationsToStyleObject (styleObj, declaration) {
   if (!isValidDeclaration(declaration)) {
     return styleObj;
   }
@@ -42,15 +42,15 @@ function reduceDeclarationsToStyleObject(styleObj, declaration) {
 }
 
 // Reduce a rule to a collection of selectors
-function reduceRulesToSelectors(selectors, rule) {
+function reduceRulesToSelectors (selectors, rule) {
   if (!isValidRule(rule)) {
     return selectors;
   }
-  var styleObject = rule.declarations.reduce(reduceDeclarationsToStyleObject, {})
+  var styleObject = rule.declarations.reduce(reduceDeclarationsToStyleObject, {});
   rule.selectors.forEach((selector) => {
     selectors[selector] = Object.assign({},
       selectors[selector],
-      styleObject 
+      styleObject
     );
   });
   return selectors;

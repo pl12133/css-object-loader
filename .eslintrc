@@ -1,0 +1,8 @@
+{
+  "extends": "semistandard",
+  "plugins": [],
+  "env": {
+    "mocha": true,
+    "node": true
+  }
+}
