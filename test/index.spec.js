@@ -23,10 +23,13 @@ describe('css-object-loader', () => {
 
   it('should be able to transform css', () => {
     expect({
-      p: {
-        fontSize: '14px',
-        fontWeight: 'bold'
-      }
-    }).to.deep.equal(actual);
+      fontSize: '14px',
+      fontWeight: 'bold'
+    }).to.deep.equal(actual['p']);
+
+    expect({
+      background: 'green',
+      textAlign: 'center'
+    }).to.deep.equal(actual['h1']);
   });
 });

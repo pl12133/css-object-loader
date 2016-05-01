@@ -1,4 +1,16 @@
+/* An animation key to cover the `!isValidRule(...)` branch */
+@keyframes someanimation {
+  0%, 100% { left: 0; }
+  50% { left:100%; }
+}
+
 p {
+  /* the loader should be able to handle comments */
   font-size: 14px;
   font-weight: bold;
+}
+
+h1 {
+  background: green;
+  text-align: center;
 }

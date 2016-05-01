@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pl12133/css-object-loader.svg?branch=master)](https://travis-ci.org/pl12133/css-object-loader)[![Coverage Status](https://coveralls.io/repos/github/pl12133/css-object-loader/badge.svg?branch=master)](https://coveralls.io/github/pl12133/css-object-loader?branch=master)
+
 <p align="center">
   <img src='http://i.imgur.com/PXYAzQE.png' title='CSS Object Loader' alt='CSS Object Loader'></img>
 </p>

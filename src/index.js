@@ -8,6 +8,7 @@ var camelCase = require('camelcase');
 //   1. Parse CSS stylesheet to AST
 //   2. Flatten AST to Object of shape { [rule.selector]: rule.declarations }
 module.exports = function cssObjectLoader (source) {
+  /* istanbul ignore next */
   this.cacheable && this.cacheable();
   // Step 1.
   var parsedStylesheet = getParsedStylesheet(source);
