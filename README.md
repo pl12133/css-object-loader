@@ -126,5 +126,6 @@ This library is currently a proof of concept and not intended for production usa
 This library uses [reworkcss/css](https://github.com/reworkcss/css) to parse CSS to an AST. The AST is then traversed to find rule declarations and populate them into an object. Media queries are ignored.
 
 ## Contributing
+- [CSS Tutorial](https://www.scaler.com/topics/css/)
 
 Questions, criticism and pull requests are always welcome.
